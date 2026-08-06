@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Turbine Blade Aeromechanics Analysis | Muhammad Patel</title>
+  <meta name="description" content="Project page for Muhammad Patel's turbine blade aeromechanics analysis, including CAD, mesh verification, material comparison, modal analysis, fatigue analysis, and design optimisation." />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --border: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, var(--bg), #020617);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: min(1050px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: 700;
+    }
+
+    .back-link {
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(30, 41, 59, 0.85);
+    }
+
+    .hero {
+      padding: 72px 0 42px;
+    }
+
+    .eyebrow {
+      color: var(--accent-2);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 860px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 26px;
+    }
+
+    .tag {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 11px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      background: rgba(30, 41, 59, 0.7);
+    }
+
+    section {
+      padding: 34px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(30, 41, 59, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 26px;
+    }
+
+    .card h2,
+    .card h3 {
+      margin-bottom: 12px;
+      color: #f8fafc;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    .highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .highlight {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      background: rgba(30, 41, 59, 0.72);
+    }
+
+    .highlight strong {
+      display: block;
+      color: #f8fafc;
+      font-size: 1.25rem;
+      margin-bottom: 4px;
+    }
+
+    .highlight span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .image-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .image-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    figure {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .image-card figure {
+      border: none;
+      border-radius: 22px;
+    }
+
+    figure img {
+      width: 100%;
+      height: 560px;
+      object-fit: contain;
+      display: block;
+      background: #ffffff;
+      cursor: zoom-in;
+    }
+
+    .image-pair figure img {
+      height: 430px;
+    }
+
+    figcaption {
+      padding: 14px 16px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .image-lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 9999;
+    }
+
+    .image-lightbox.active {
+      display: flex;
+    }
+
+    .image-lightbox img {
+      max-width: 96vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+      cursor: zoom-out;
+    }
+
+    .image-lightbox-close {
+      position: fixed;
+      top: 22px;
+      right: 28px;
+      color: #ffffff;
+      font-size: 2rem;
+      font-weight: 700;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    footer {
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      margin-top: 40px;
+    }
+
+    @media (max-width: 900px) {
+      .grid,
+      .highlight-grid,
+      .image-pair {
+        grid-template-columns: 1fr;
+      }
+
+      figure img,
+      .image-pair figure img {
+        height: 420px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      figure img,
+      .image-pair figure img {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Muhammad Patel · Aerospace Engineering Portfolio</div>
+        <a class="back-link" href="../index.html">← Back to Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="eyebrow">Aeromechanics · FEA · Modal Analysis · Fatigue · Optimisation</div>
+      <h1>Turbine Blade Aeromechanics Analysis</h1>
+      <p>
+        A simulation-led aeromechanics project analysing the structural behaviour of a turbine blade under rotational,
+        modal, and fatigue loading. The work included model verification, material comparison, modal analysis,
+        high-cycle fatigue assessment, and design optimisation to reduce blade stress.
+      </p>
+
+      <div class="tag-row">
+        <span class="tag">SolidWorks</span>
+        <span class="tag">FEA</span>
+        <span class="tag">Mesh Study</span>
+        <span class="tag">Modal Analysis</span>
+        <span class="tag">Fatigue Analysis</span>
+        <span class="tag">Design Optimisation</span>
+      </div>
+
+      <div class="highlight-grid">
+        <div class="highlight">
+          <strong>0.4 m</strong>
+          <span>selected mesh size for accuracy and efficiency</span>
+        </div>
+        <div class="highlight">
+          <strong>K403</strong>
+          <span>selected material for modal and fatigue studies</span>
+        </div>
+        <div class="highlight">
+          <strong>42.96%</strong>
+          <span>stress reduction from hollow blade design</span>
+        </div>
+        <div class="highlight">
+          <strong>41.948 Hz</strong>
+          <span>highest-deformation modal frequency</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="grid">
+        <div class="card">
+          <h2>Project Overview</h2>
+          <p>
+            The project investigated how turbine blade geometry, material choice, mesh quality, and boundary conditions
+            influence structural performance. A CAD model of an aerofoil-style turbine blade was tested through several
+            simulation stages to assess deformation, stress, strain, modal response, and fatigue behaviour.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Objective</h2>
+          <p>
+            The objective was to use engineering simulation to evaluate turbine blade performance and improve the design.
+            The study aimed to balance accuracy and computation time, compare candidate materials, identify potential
+            resonance conditions, assess fatigue limits, and reduce stress through design changes.
+          </p>
+        </div>
+
+        <div class="card full image-card">
+          <figure>
+            <img src="../images/turbine-cad-model.png" alt="Turbine blade CAD model and geometric reference" />
+            <figcaption>CAD model and geometric reference used for the turbine blade simulation study.</figcaption>
+          </figure>
+        </div>
+
+        <div class="card full">
+          <h2>Simulation Workflow</h2>
+          <ul>
+            <li>Created/imported a turbine blade CAD model using aerofoil coordinate data.</li>
+            <li>Performed a mesh study to select a practical mesh size for further simulations.</li>
+            <li>Validated simulated rotational stress against a theoretical stress calculation.</li>
+            <li>Applied fixed supports at the dovetail and rotational velocity loading across the blade.</li>
+            <li>Compared material behaviour for structural steel, aluminium alloy, K403 superalloy, titanium alloy, and graphene.</li>
+            <li>Performed modal analysis using K403 superalloy with gravity and a pressure load applied.</li>
+            <li>Carried out high-cycle fatigue analysis using K403 superalloy and an S-N curve generated from Basquin's equation.</li>
+            <li>Tested design optimisation concepts including twist, fillets, hollowing, serrated ends, and holes near the blade tip.</li>
+          </ul>
+        </div>
+
+        <div class="card full image-card">
+          <figure>
+            <img src="../images/turbine-boundary-conditions.png" alt="Boundary conditions used for turbine blade FEA, modal, and fatigue analysis" />
+            <figcaption>Boundary conditions used for load testing, modal analysis, and high-cycle fatigue analysis.</figcaption>
+          </figure>
+        </div>
+
+        <div class="card">
+          <h2>Mesh Verification</h2>
+          <p>
+            A mesh independence study was used to balance accuracy and computational cost. Due to the large scale of the turbine blade model, the tested mesh sizes were also large. Reducing the mesh element size from
+            0.4 m to 0.2 m only improved deformation accuracy by approximately 0.086%, while computation time increased
+            by over 600%. Based on this trade-off, the 0.4 m mesh size was selected as the practical mesh setup for further simulations.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Material Comparison</h2>
+          <p>
+            Material load testing compared stress, strain, and deformation behaviour over the stable tested rotational range.
+            K403 superalloy was selected for the later modal and fatigue studies because it gave a strong stiffness response
+            in the simulation comparison, while aluminium alloy showed less favourable performance.
+          </p>
+        </div>
+
+        <div class="card full image-card">
+          <figure>
+            <img src="../images/turbine-material-comparison.png" alt="Material comparison graphs for turbine blade stress, strain, and deformation" />
+            <figcaption>Material comparison graphs showing stress, strain, and deformation behaviour under rotational loading.</figcaption>
+          </figure>
+        </div>
+
+        <div class="card full">
+          <h2>Modal Analysis</h2>
+          <p>
+            Modal testing identified the modes with the highest deformation response. The most critical results occurred
+            around modes 21 to 25, with Mode 23 producing the highest deformation of 0.003082 m at 41.948 Hz. The highest
+            deformations were concentrated around the trailing edge, likely due to the thinner geometry in that region.
+          </p>
+        </div>
+
+        <div class="card full image-card">
+          <figure>
+            <img src="../images/turbine-modal-analysis.png" alt="Modal analysis results for turbine blade deformation modes" />
+            <figcaption>Modal analysis results identifying high-deformation modes and trailing-edge deformation behaviour.</figcaption>
+          </figure>
+        </div>
+
+        <div class="card">
+          <h2>High-Cycle Fatigue</h2>
+          <p>
+            High-cycle fatigue analysis was performed for K403 superalloy across a simulation velocity sweep from 320 m/s to 380 m/s.
+            The results showed that fatigue life decreased sharply as velocity increased, while damage accumulation rose
+            and the stress safety factor reduced. These values are presented as simulation loading conditions rather than
+            claimed real-world wind turbine operating speeds.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Design Optimisation</h2>
+          <p>
+            Several geometry changes were tested to reduce blade stress. The hollow blade design achieved the largest
+            improvement, reducing stress by 42.96% compared with the original design. Filleted joints were the second
+            strongest option, reducing stress by 32.54% by lowering stress concentration at connection regions.
+          </p>
+        </div>
+
+        <div class="card full">
+          <div class="image-pair">
+            <figure>
+              <img src="../images/turbine-fatigue-analysis.png" alt="High-cycle fatigue analysis graphs for turbine blade velocity, life, damage, and safety factor" />
+              <figcaption>High-cycle fatigue results showing life reduction, damage increase, and safety factor reduction with velocity.</figcaption>
+            </figure>
+
+            <figure>
+              <img src="../images/turbine-optimisation-results.png" alt="Design optimisation results for turbine blade stress reduction" />
+              <figcaption>Design optimisation comparison showing stress reductions from hollowing, filleting, twisting, serrations, and holes.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="card full">
+          <h2>Key Results</h2>
+          <ul>
+            <li>0.4 m mesh size selected due to strong accuracy-to-time balance for the large turbine blade model.</li>
+            <li>K403 superalloy was selected for modal and fatigue analysis after the material comparison.</li>
+            <li>Aluminium alloy showed the least favourable performance in the material comparison.</li>
+            <li>Mode 23 had the highest modal deformation: 0.003082 m at 41.948 Hz.</li>
+            <li>Trailing-edge deformation was the main modal concern due to thin blade geometry.</li>
+            <li>Hollow blade design reduced stress by 42.96%, from approximately 65.52 MPa to 37.38 MPa.</li>
+            <li>Filleted joints reduced stress by 32.54%, from approximately 65.52 MPa to 44.20 MPa.</li>
+          </ul>
+        </div>
+
+        <div class="card full">
+          <h2>Skills Demonstrated</h2>
+          <ul>
+            <li>Finite element analysis and simulation setup.</li>
+            <li>Mesh verification and simulation efficiency evaluation.</li>
+            <li>Material comparison using stress, strain, and deformation outputs.</li>
+            <li>Modal analysis and interpretation of deformation modes.</li>
+            <li>High-cycle fatigue assessment using S-N curve data and Basquin's equation.</li>
+            <li>Design optimisation through geometry changes and result comparison.</li>
+            <li>Engineering judgement when simulation limits required practical test conditions.</li>
+          </ul>
+        </div>
+
+        <div class="card full">
+          <h2>Reflection</h2>
+          <p>
+            This project strengthened my understanding of aeromechanics simulation and the importance of validating a
+            model before using it for design decisions. The mesh study was especially useful because it showed that a
+            more refined mesh does not always justify the extra computation time, particularly on a large turbine blade
+            model where simulation cost increases quickly.
+          </p>
+          <p>
+            The project also showed how material choice, boundary conditions, fatigue behaviour, and geometry changes
+            all influence turbine blade performance. The modal analysis highlighted the trailing edge as a sensitive
+            region because of its thinner geometry, while the fatigue study showed how increasing loading conditions can
+            rapidly reduce life and safety factor.
+          </p>
+          <p>
+            The strongest design outcome was the hollow blade concept, which demonstrated how a targeted geometry
+            change can significantly reduce stress within the simulated test setup while maintaining the intended blade
+            form. Overall, this project helped me connect structural analysis, aeromechanics, fatigue assessment, and
+            design optimisation into a more complete engineering decision-making process.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="image-lightbox" id="image-lightbox">
+    <span class="image-lightbox-close" id="image-lightbox-close">&times;</span>
+    <img id="image-lightbox-img" src="" alt="Expanded project image" />
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Muhammad Patel. Aerospace Engineering Portfolio.</p>
+    </div>
+  </footer>
+
+  <script>
+    const lightbox = document.getElementById("image-lightbox");
+    const lightboxImg = document.getElementById("image-lightbox-img");
+    const lightboxClose = document.getElementById("image-lightbox-close");
+
+    document.querySelectorAll("figure img").forEach((img) => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add("active");
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove("active");
+      lightboxImg.src = "";
+    }
+
+    lightboxClose.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox || event.target === lightboxImg) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>

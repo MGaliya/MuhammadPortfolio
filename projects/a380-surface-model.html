@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A380 Surface Modelling | Muhammad Patel</title>
+  <meta name="description" content="Project page for Muhammad Patel's A380 surface modelling project using SolidWorks surface modelling tools including lofted surface, boundary surface, filled surface, trimmed surface, knit surface, and split line." />
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --border: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, var(--bg), #020617);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: min(1050px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: 700;
+    }
+
+    .back-link {
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(30, 41, 59, 0.85);
+    }
+
+    .hero {
+      padding: 72px 0 42px;
+    }
+
+    .eyebrow {
+      color: var(--accent-2);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 860px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 26px;
+    }
+
+    .tag {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 11px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      background: rgba(30, 41, 59, 0.7);
+    }
+
+    section {
+      padding: 34px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(30, 41, 59, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 26px;
+    }
+
+    .card h2,
+    .card h3 {
+      margin-bottom: 12px;
+      color: #f8fafc;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    .highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .highlight {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      background: rgba(30, 41, 59, 0.72);
+    }
+
+    .highlight strong {
+      display: block;
+      color: #f8fafc;
+      font-size: 1.25rem;
+      margin-bottom: 4px;
+    }
+
+    .highlight span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .model-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .model-card h2 {
+      padding: 26px 26px 0;
+    }
+
+    .model-card p {
+      padding: 8px 26px 0;
+      color: var(--muted);
+    }
+
+    model-viewer {
+      width: 100%;
+      height: 620px;
+      display: block;
+      background: #ffffff;
+      margin-top: 22px;
+    }
+
+    .model-note {
+      padding: 14px 16px 18px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      border-top: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.65);
+    }
+
+    .image-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .image-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    figure {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .image-card figure {
+      border: none;
+      border-radius: 22px;
+    }
+
+    figure img {
+      width: 100%;
+      height: 560px;
+      object-fit: contain;
+      display: block;
+      background: #ffffff;
+      cursor: zoom-in;
+    }
+
+    .image-pair figure img {
+      height: 430px;
+    }
+
+    figcaption {
+      padding: 14px 16px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .image-lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 9999;
+    }
+
+    .image-lightbox.active {
+      display: flex;
+    }
+
+    .image-lightbox img {
+      max-width: 96vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+      cursor: zoom-out;
+    }
+
+    .image-lightbox-close {
+      position: fixed;
+      top: 22px;
+      right: 28px;
+      color: #ffffff;
+      font-size: 2rem;
+      font-weight: 700;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    footer {
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      margin-top: 40px;
+    }
+
+    @media (max-width: 900px) {
+      .grid,
+      .highlight-grid,
+      .image-pair {
+        grid-template-columns: 1fr;
+      }
+
+      model-viewer {
+        height: 460px;
+      }
+
+      figure img,
+      .image-pair figure img {
+        height: 420px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      model-viewer {
+        height: 340px;
+      }
+
+      figure img,
+      .image-pair figure img {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Muhammad Patel · Aerospace Engineering Portfolio</div>
+        <a class="back-link" href="../index.html">← Back to Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="eyebrow">Advanced CAD · Surface Modelling · SolidWorks · Aerospace Geometry</div>
+      <h1>A380 Surface Modelling</h1>
+      <p>
+        An advanced CAD project focused on creating and refining an aircraft surface model using SolidWorks surfacing tools.
+        The work explored lofted, boundary, filled, trimmed, knit, and split-line surface workflows to model complex aerospace
+        geometry and improve understanding of freeform surface modelling methods.
+      </p>
+
+      <div class="tag-row">
+        <span class="tag">SolidWorks</span>
+        <span class="tag">Surface Modelling</span>
+        <span class="tag">Lofted Surface</span>
+        <span class="tag">Boundary Surface</span>
+        <span class="tag">Knit Surface</span>
+        <span class="tag">NURBS</span>
+      </div>
+
+      <div class="highlight-grid">
+        <div class="highlight">
+          <strong>6 tools</strong>
+          <span>key surfacing tools analysed and applied</span>
+        </div>
+        <div class="highlight">
+          <strong>G0/G1/G2</strong>
+          <span>surface continuity concepts reviewed</span>
+        </div>
+        <div class="highlight">
+          <strong>NURBS</strong>
+          <span>theoretical basis of CAD surface modelling</span>
+        </div>
+        <div class="highlight">
+          <strong>Aerospace</strong>
+          <span>freeform geometry and smooth aerodynamic surfaces</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="grid">
+        <div class="card">
+          <h2>Project Overview</h2>
+          <p>
+            This project investigated SolidWorks as a freeform surface modelling system and applied its surfacing tools to
+            an aircraft model. The aim was to understand how complex curved geometry can be created, refined, and joined
+            into a clean surface model suitable for aerospace-style forms.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Objective</h2>
+          <p>
+            The objective was to evaluate the requirements of a good surface modelling system, compare SolidWorks with
+            other CAD tools, and demonstrate practical use of SolidWorks surfacing features on complex aircraft geometry.
+          </p>
+        </div>
+
+        <div class="card full model-card">
+          <h2>Interactive 3D Preview</h2>
+          <p>
+            Rotate, zoom, and inspect the simplified A380 surface model directly in the browser.
+          </p>
+          <model-viewer
+            src="../models/a380-viewer.glb"
+            alt="Interactive 3D preview of the A380 surface model"
+            camera-controls
+            auto-rotate
+            shadow-intensity="1"
+            exposure="0.9"
+            ar
+            oncontextmenu="return false">
+          </model-viewer>
+          <div class="model-note">
+            Interactive 3D preview of the A380 surface model. This is a simplified web-viewing model created for portfolio display, not the original CAD file.
+          </div>
+        </div>
+
+        <div class="card full image-card">
+          <figure>
+            <img src="../images/a380-finished-model.png" alt="Completed A380 surface model in SolidWorks" />
+            <figcaption>Completed A380 surface model showing the final overall geometry and finished aircraft form.</figcaption>
+          </figure>
+        </div>
+
+        <div class="card full">
+          <h2>Surface Modelling Requirements</h2>
+          <ul>
+            <li>Ability to handle simple and complex surface geometries.</li>
+            <li>Mathematical precision for accurate engineering models.</li>
+            <li>Curvature continuity for high-quality transitions between surfaces.</li>
+            <li>A clear user interface that supports both new and experienced users.</li>
+            <li>Scalability for larger models and more complex geometry.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>SolidWorks Evaluation</h2>
+          <p>
+            SolidWorks was assessed against key freeform modelling criteria. The report found that SolidWorks provides a
+            strong balance of usability, accuracy, and practical tool availability for most engineering surface modelling tasks,
+            especially where feature history and engineering workflows are important.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Software Comparison</h2>
+          <p>
+            SolidWorks was compared with CATIA, Fusion 360, AutoCAD, and Rhino. CATIA and Rhino were identified as stronger
+            for very advanced or highly specialised surface modelling, while SolidWorks remained a practical and accessible
+            option for engineering-focused CAD work.
+          </p>
+        </div>
+
+        <div class="card full image-card">
+          <figure>
+            <img src="../images/a380-final-surface-model.png" alt="Final A380 aircraft surface model in SolidWorks" />
+            <figcaption>Final aircraft surface model showing the completed SolidWorks surface modelling workflow.</figcaption>
+          </figure>
+        </div>
+
+        <div class="card full">
+          <h2>Tools Applied</h2>
+          <ul>
+            <li><strong>Lofted Surface:</strong> used to create transitions between different profiles and changing cross-sections.</li>
+            <li><strong>Boundary Surface:</strong> used to create controlled surfaces curved in two directions.</li>
+            <li><strong>Filled Surface:</strong> used to patch or close gaps between existing edges.</li>
+            <li><strong>Trim Surface:</strong> used to remove unwanted intersecting surface regions and clean the model.</li>
+            <li><strong>Knit Surface:</strong> used to combine multiple surfaces into a connected surface body.</li>
+            <li><strong>Split Line:</strong> used to divide surfaces into separate regions for local control and feature placement.</li>
+          </ul>
+        </div>
+
+        <div class="card full">
+          <div class="image-pair">
+            <figure>
+              <img src="../images/a380-lofted-surface.png" alt="Lofted surface example on aircraft model" />
+              <figcaption>Lofted surface example showing how profiles were connected to generate curved aircraft geometry.</figcaption>
+            </figure>
+
+            <figure>
+              <img src="../images/a380-boundary-surface.png" alt="Boundary surface example on aircraft model" />
+              <figcaption>Boundary surface example used to create a controlled freeform surface between selected edges and guide curves.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Geometry Refinement</h2>
+          <p>
+            Refinement tools were used to clean and organise the model after surface creation. Trimmed surfaces helped remove
+            unwanted geometry, while knit surfaces helped combine separate surface bodies into a more complete aircraft form.
+            Split lines provided extra control over specific regions without changing the underlying surface shape.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Theory Used</h2>
+          <p>
+            The theoretical section reviewed NURBS modelling and geometric continuity. NURBS were identified as the mathematical
+            basis for accurate freeform curves and surfaces, while G0, G1, and G2 continuity explained how surfaces connect with
+            positional, tangent, or curvature smoothness.
+          </p>
+        </div>
+
+        <div class="card full">
+          <div class="image-pair">
+            <figure>
+              <img src="../images/a380-filled-surface.png" alt="Filled surface example on aircraft model" />
+              <figcaption>Filled surface example used to patch a surface region and close a gap in the aircraft geometry.</figcaption>
+            </figure>
+
+            <figure>
+              <img src="../images/a380-knit-surface.png" alt="Knit surface example on aircraft model" />
+              <figcaption>Knit surface workflow used to combine separate surfaces into a more complete connected body.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="card full">
+          <h2>Skills Demonstrated</h2>
+          <ul>
+            <li>Advanced SolidWorks surface modelling workflow.</li>
+            <li>Use of lofted, boundary, filled, trimmed, knit, and split-line surface tools.</li>
+            <li>Understanding of surface continuity and smooth aerospace geometry.</li>
+            <li>Comparison of CAD systems for engineering surface modelling.</li>
+            <li>Application of NURBS and continuity theory to CAD modelling decisions.</li>
+            <li>Model refinement and troubleshooting of complex surface geometry.</li>
+          </ul>
+        </div>
+
+        <div class="card full">
+          <h2>Reflection</h2>
+          <p>
+            This project strengthened my understanding of the difference between solid modelling and surface modelling.
+            Aircraft geometry contains many smooth, curved, and blended forms, so surface modelling tools are important for
+            achieving shapes that would be difficult to produce using basic solid features alone.
+          </p>
+          <p>
+            The most useful part of the project was learning how different surfacing tools support different modelling problems.
+            Lofted and boundary surfaces were useful for creating the main freeform geometry, while trimming, knitting, and split
+            lines were important for refining the model and controlling local regions.
+          </p>
+          <p>
+            The project also highlighted the importance of surface quality and continuity in aerospace design. Smooth transitions
+            are not only visually important; they also matter for aerodynamic surfaces where abrupt changes can affect airflow.
+            Overall, the project improved my confidence with advanced CAD workflows and gave me a clearer understanding of how
+            complex aircraft-style surfaces can be built and refined in SolidWorks.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="image-lightbox" id="image-lightbox">
+    <span class="image-lightbox-close" id="image-lightbox-close">&times;</span>
+    <img id="image-lightbox-img" src="" alt="Expanded project image" />
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Muhammad Patel. Aerospace Engineering Portfolio.</p>
+    </div>
+  </footer>
+
+  <script>
+    const lightbox = document.getElementById("image-lightbox");
+    const lightboxImg = document.getElementById("image-lightbox-img");
+    const lightboxClose = document.getElementById("image-lightbox-close");
+
+    document.querySelectorAll("figure img").forEach((img) => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add("active");
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove("active");
+      lightboxImg.src = "";
+    }
+
+    lightboxClose.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox || event.target === lightboxImg) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>

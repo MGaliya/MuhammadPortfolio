@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aircraft Design and Stability Mission Analysis | Muhammad Patel</title>
+  <meta name="description" content="Project page for Muhammad Patel's aircraft design and stability project, including payload-range analysis, constraint analysis, aerodynamic stability, mission planning, and cabin layout adjustments." />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --border: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, var(--bg), #020617);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: min(1050px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: 700;
+    }
+
+    .back-link {
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(30, 41, 59, 0.85);
+    }
+
+    .hero {
+      padding: 72px 0 42px;
+    }
+
+    .eyebrow {
+      color: var(--accent-2);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 860px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 26px;
+    }
+
+    .tag {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 11px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      background: rgba(30, 41, 59, 0.7);
+    }
+
+    section {
+      padding: 34px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(30, 41, 59, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 26px;
+    }
+
+    .card h2,
+    .card h3 {
+      margin-bottom: 12px;
+      color: #f8fafc;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    .highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .highlight {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      background: rgba(30, 41, 59, 0.72);
+    }
+
+    .highlight strong {
+      display: block;
+      color: #f8fafc;
+      font-size: 1.25rem;
+      margin-bottom: 4px;
+    }
+
+    .highlight span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .image-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .image-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    figure {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .image-card figure {
+      border: none;
+      border-radius: 22px;
+    }
+
+    figure img {
+      width: 100%;
+      height: 560px;
+      object-fit: contain;
+      display: block;
+      background: #ffffff;
+      cursor: zoom-in;
+    }
+
+    .image-pair figure img {
+      height: 430px;
+    }
+
+    figcaption {
+      padding: 14px 16px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .image-lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 9999;
+    }
+
+    .image-lightbox.active {
+      display: flex;
+    }
+
+    .image-lightbox img {
+      max-width: 96vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+      cursor: zoom-out;
+    }
+
+    .image-lightbox-close {
+      position: fixed;
+      top: 22px;
+      right: 28px;
+      color: #ffffff;
+      font-size: 2rem;
+      font-weight: 700;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    footer {
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      margin-top: 40px;
+    }
+
+    @media (max-width: 900px) {
+      .grid,
+      .highlight-grid,
+      .image-pair {
+        grid-template-columns: 1fr;
+      }
+
+      figure img,
+      .image-pair figure img {
+        height: 420px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      figure img,
+      .image-pair figure img {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Muhammad Patel · Aerospace Engineering Portfolio</div>
+        <a class="back-link" href="../index.html">← Back to Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="eyebrow">Aircraft Design · Stability · Payload-Range · Constraint Analysis</div>
+      <h1>Aircraft Design and Stability Mission Analysis</h1>
+      <p>
+        A conceptual aircraft design and stability project for a civil transport mission between Southampton and Lyon-Bron.
+        The work combined mission planning, payload-range analysis, constraint analysis, aerodynamic stability calculations,
+        cabin layout considerations, and aircraft configuration selection.
+      </p>
+
+      <div class="tag-row">
+        <span class="tag">Aircraft Sizing</span>
+        <span class="tag">Payload-Range</span>
+        <span class="tag">Constraint Analysis</span>
+        <span class="tag">Stability Calculations</span>
+        <span class="tag">Excel</span>
+        <span class="tag">Mission Planning</span>
+      </div>
+
+      <div class="highlight-grid">
+        <div class="highlight">
+          <strong>265 pax</strong>
+          <span>baseline passenger mission requirement</span>
+        </div>
+        <div class="highlight">
+          <strong>421.5 nm</strong>
+          <span>Southampton to Lyon-Bron mission distance</span>
+        </div>
+        <div class="highlight">
+          <strong>~6,200 N/m²</strong>
+          <span>realistic wide-body wing loading reference</span>
+        </div>
+        <div class="highlight">
+          <strong>7.43 m</strong>
+          <span>calculated mean aerodynamic chord</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="grid">
+        <div class="card">
+          <h2>Project Overview</h2>
+          <p>
+            This project focused on designing and analysing a wide-body twin-engine civil transport aircraft mission.
+            The aircraft was assessed against runway constraints, payload requirements, cruise conditions, fuel assumptions,
+            and safety considerations for a route from Southampton Airport to Lyon-Bron Airport with diversion planning.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>My Contribution</h2>
+          <p>
+            My contribution focused on mathematical calculations, Excel-based analysis, payload-range analysis,
+            constraint analysis, and supporting design decisions. The project required translating mission requirements
+            into sizing values, performance graphs, and stability reference points.
+          </p>
+        </div>
+
+        <div class="card full image-card">
+          <figure>
+            <img src="../images/aircraft-summary-table-v2.png" alt="Aircraft design summary table showing mission data, sizing values, payload, range, wing geometry, and engine reference values" />
+            <figcaption>Aircraft design summary table showing mission requirements, sizing values, payload-range figures, wing geometry, stability references, and engine data.</figcaption>
+          </figure>
+        </div>
+
+        <div class="card full">
+          <h2>Mission and Design Requirements</h2>
+          <ul>
+            <li>Designed around a civil transport mission between Southampton Airport and Lyon-Bron Airport.</li>
+            <li>Baseline requirement involved carrying 265 passengers.</li>
+            <li>Runway constraints were considered for Southampton, Lyon-Bron, and diversion airports.</li>
+            <li>The mission profile included take-off, climb, cruise, descent, landing, diversion allowance, loiter, and reserve fuel.</li>
+            <li>Operational restrictions such as weight reduction, favourable weather, runway condition, and safety margins were considered.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>Payload-Range Analysis</h2>
+          <p>
+            Payload-range analysis was used to understand how payload capacity affects achievable range. The final concept
+            used a maximum payload of 27,825 kg, with the analysis showing the maximum payload range and ferry range for
+            the aircraft. This helped confirm whether the design could meet the mission requirement while maintaining fuel and reserve allowances.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Constraint Analysis</h2>
+          <p>
+            Constraint analysis was used to select an appropriate balance between wing loading and thrust-to-weight ratio.
+            Take-off, climb, cruise, and landing constraints were compared to identify a feasible design region. After
+            sanity-checking the sizing against real wide-body aircraft, the page uses a more realistic wing-loading reference
+            of approximately 6,200 N/m² rather than overemphasising the lower conceptual value from the spreadsheet.
+          </p>
+        </div>
+
+        <div class="card full">
+          <div class="image-pair">
+            <figure>
+              <img src="../images/aircraft-payload-range.png" alt="Payload range analysis graph for conceptual aircraft" />
+              <figcaption>Payload-range analysis used to evaluate payload capacity against achievable range.</figcaption>
+            </figure>
+
+            <figure>
+              <img src="../images/aircraft-constraint-analysis.png" alt="Aircraft constraint analysis graph" />
+              <figcaption>Constraint analysis comparing take-off, climb, cruise, and landing requirements to select a feasible design point.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="card full">
+          <h2>Aerodynamic Stability</h2>
+          <p>
+            The stability section calculated key longitudinal reference points, including standard mean chord, mean aerodynamic
+            chord, centre of gravity, aerodynamic centre, tail position, neutral point, and landing gear locations. These
+            values were used as conceptual layout checks and to understand how CG position, tail sizing, and neutral point
+            location influence aircraft stability.
+          </p>
+        </div>
+
+        <div class="card full image-card">
+          <figure>
+            <img src="../images/aircraft-stability-layout.png" alt="Aircraft aerodynamic stability layout showing centre of gravity and aerodynamic reference points" />
+            <figcaption>Aerodynamic stability layout showing key reference points including CG, wing aerodynamic centre, and neutral point.</figcaption>
+          </figure>
+        </div>
+
+        <div class="card">
+          <h2>Key Aircraft Values</h2>
+          <ul>
+            <li>Passenger requirement: <strong>265 passengers</strong></li>
+            <li>Payload estimate: <strong>27,825 kg</strong></li>
+            <li>Realistic MTOW scale: <strong>~230,000 kg</strong></li>
+            <li>Wing loading reference: <strong>~6,200 N/m²</strong></li>
+            <li>Wing area range: <strong>~355–362 m²</strong></li>
+            <li>Wingspan range: <strong>~60–65 m</strong></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>Stability Reference Values</h2>
+          <ul>
+            <li>Mean aerodynamic chord: <strong>7.43 m</strong></li>
+            <li>Static margin target for early sizing: <strong>~5–15% MAC</strong></li>
+            <li>Reference points calculated: <strong>CG, aerodynamic centre, neutral point, tail AC, and landing gear positions</strong></li>
+            <li>Use of results: <strong>conceptual layout and stability sensitivity checks</strong></li>
+            <li>Final note: <strong>values treated as early-stage sizing outputs, not certified aircraft data</strong></li>
+          </ul>
+        </div>
+
+        <div class="card full">
+          <h2>Individual Mission Adjustment</h2>
+          <p>
+            As an individual task, the passenger capacity was adjusted from the original configuration to a reduced 190-passenger
+            mission. This required changes to seating layout and weight distribution. Economy seating was shifted rearwards by
+            one MAC to help recover centre-of-gravity position, while removed rear space was repurposed for facilities and cargo volume.
+          </p>
+        </div>
+
+        <div class="card full image-card">
+          <figure>
+            <img src="../images/aircraft-cabin-layout.png" alt="Aircraft cabin and seating layout" />
+            <figcaption>Cabin and seating layout used to consider passenger accommodation and weight distribution.</figcaption>
+          </figure>
+        </div>
+
+        <div class="card full">
+          <h2>Skills Demonstrated</h2>
+          <ul>
+            <li>Aircraft conceptual sizing and performance estimation.</li>
+            <li>Payload-range analysis using Breguet range relationships.</li>
+            <li>Constraint analysis for take-off, climb, cruise, and landing performance.</li>
+            <li>Aerodynamic stability calculations including MAC, CG, aerodynamic centre, and neutral point.</li>
+            <li>Mission planning with diversion, loiter, reserve fuel, and runway limitations.</li>
+            <li>Use of Excel to support calculations, data handling, and graph generation.</li>
+            <li>Design judgement when balancing performance, safety, passenger capacity, and operational restrictions.</li>
+          </ul>
+        </div>
+
+        <div class="card full">
+          <h2>Reflection</h2>
+          <p>
+            This project strengthened my understanding of how aircraft conceptual design connects multiple engineering disciplines.
+            Payload, range, runway performance, stability, engine choice, cabin layout, and operational constraints all had to be
+            considered together rather than in isolation. A useful improvement after the original analysis was sanity-checking
+            the design values against real wide-body aircraft data, which helped identify where early spreadsheet outputs needed
+            to be treated as conceptual rather than final design values.
+          </p>
+          <p>
+            The most valuable part of the project was using payload-range and constraint analysis to turn mission requirements
+            into engineering design values. It showed how early-stage aircraft design relies on assumptions, trade-offs, and
+            iteration, and how values such as MTOW, wing loading, thrust-to-weight ratio, passenger capacity, and weight
+            distribution must be checked against realistic aircraft benchmarks.
+          </p>
+          <p>
+            The individual seating-layout adjustment also helped me understand the practical effect of centre-of-gravity management.
+            Removing passenger rows created a weight distribution issue, so the layout had to be adjusted to bring the aircraft back
+            toward a more suitable balance. Overall, this project improved my ability to connect calculations, graphs, stability theory,
+            and design decisions into a coherent aircraft design process.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="image-lightbox" id="image-lightbox">
+    <span class="image-lightbox-close" id="image-lightbox-close">&times;</span>
+    <img id="image-lightbox-img" src="" alt="Expanded project image" />
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Muhammad Patel. Aerospace Engineering Portfolio.</p>
+    </div>
+  </footer>
+
+  <script>
+    const lightbox = document.getElementById("image-lightbox");
+    const lightboxImg = document.getElementById("image-lightbox-img");
+    const lightboxClose = document.getElementById("image-lightbox-close");
+
+    document.querySelectorAll("figure img").forEach((img) => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add("active");
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove("active");
+      lightboxImg.src = "";
+    }
+
+    lightboxClose.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox || event.target === lightboxImg) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>

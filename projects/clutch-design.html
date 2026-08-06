@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clutch Design and Motion Analysis | Muhammad Patel</title>
+  <meta name="description" content="Project page for Muhammad Patel's centrifugal clutch design, CAD modelling, FEA, and motion analysis project using SolidWorks." />
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --border: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, var(--bg), #020617);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: min(1050px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: 700;
+    }
+
+    .back-link {
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(30, 41, 59, 0.85);
+    }
+
+    .hero {
+      padding: 72px 0 42px;
+    }
+
+    .eyebrow {
+      color: var(--accent-2);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 840px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 26px;
+    }
+
+    .tag {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 11px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      background: rgba(30, 41, 59, 0.7);
+    }
+
+    section {
+      padding: 34px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(30, 41, 59, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 26px;
+    }
+
+    .card h2,
+    .card h3 {
+      margin-bottom: 12px;
+      color: #f8fafc;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    .highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .highlight {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      background: rgba(30, 41, 59, 0.72);
+    }
+
+    .highlight strong {
+      display: block;
+      color: #f8fafc;
+      font-size: 1.25rem;
+      margin-bottom: 4px;
+    }
+
+    .highlight span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .model-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .model-card h2 {
+      padding: 26px 26px 0;
+    }
+
+    .model-card p {
+      padding: 8px 26px 0;
+      color: var(--muted);
+    }
+
+    model-viewer {
+      width: 100%;
+      height: 620px;
+      display: block;
+      background: #ffffff;
+      margin-top: 22px;
+    }
+
+    .model-note {
+      padding: 14px 16px 18px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      border-top: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.65);
+    }
+
+    .image-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .image-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    figure {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .image-card figure {
+      border: none;
+      border-radius: 22px;
+    }
+
+    figure img {
+      width: 100%;
+      height: 560px;
+      object-fit: contain;
+      display: block;
+      background: #ffffff;
+      cursor: zoom-in;
+    }
+
+    .image-pair figure img {
+      height: 430px;
+    }
+
+    figcaption {
+      padding: 14px 16px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .image-lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 9999;
+    }
+
+    .image-lightbox.active {
+      display: flex;
+    }
+
+    .image-lightbox img {
+      max-width: 96vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+      cursor: zoom-out;
+    }
+
+    .image-lightbox-close {
+      position: fixed;
+      top: 22px;
+      right: 28px;
+      color: #ffffff;
+      font-size: 2rem;
+      font-weight: 700;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    footer {
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      margin-top: 40px;
+    }
+
+    @media (max-width: 900px) {
+      .grid,
+      .highlight-grid,
+      .image-pair {
+        grid-template-columns: 1fr;
+      }
+
+      model-viewer {
+        height: 460px;
+      }
+
+      figure img,
+      .image-pair figure img {
+        height: 420px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      model-viewer {
+        height: 340px;
+      }
+
+      figure img,
+      .image-pair figure img {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Muhammad Patel · Aerospace Engineering Portfolio</div>
+        <a class="back-link" href="../index.html">← Back to Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="eyebrow">CAD Design · FEA · Motion Analysis · Power Transmission</div>
+      <h1>Centrifugal Clutch Design and Motion Analysis</h1>
+      <p>
+        A SolidWorks CAD and simulation project focused on designing a centrifugal clutch assembly for a Honda GX
+        engine application. The work included concept selection, part modelling, assembly configurations, 2D
+        manufacturing drawings, theoretical calculations, FEA on the clutch shoe, and motion analysis of clutch engagement.
+      </p>
+
+      <div class="tag-row">
+        <span class="tag">SolidWorks</span>
+        <span class="tag">Motion Analysis</span>
+        <span class="tag">FEA</span>
+        <span class="tag">2D Engineering Drawings</span>
+        <span class="tag">Centrifugal Clutch</span>
+        <span class="tag">Honda GX</span>
+      </div>
+
+      <div class="highlight-grid">
+        <div class="highlight">
+          <strong>4 parts</strong>
+          <span>shaft, flywheel, clutch bell, and clutch shoe</span>
+        </div>
+        <div class="highlight">
+          <strong>2, 3, 4</strong>
+          <span>shoe assembly configurations modelled</span>
+        </div>
+        <div class="highlight">
+          <strong>7.3 Nm</strong>
+          <span>Honda GX120 max net torque reference</span>
+        </div>
+        <div class="highlight">
+          <strong>2.4 kW</strong>
+          <span>Honda GX120 net power reference</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="grid">
+        <div class="card">
+          <h2>Project Overview</h2>
+          <p>
+            The clutch was developed as a CAD and simulation study to investigate how a centrifugal clutch transfers
+            power from an engine shaft to an output clutch bell. The assembly was built from four main components:
+            the shaft, flywheel, clutch bell, and clutch shoe.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Objective</h2>
+          <p>
+            The objective was to create a complete clutch design that could be modelled, detailed, assembled, and
+            tested through simulation. The work aimed to compare different shoe configurations and understand how
+            the clutch bell and shoes respond as motor speed increases.
+          </p>
+        </div>
+
+        <div class="card full model-card">
+          <h2>Interactive 3D Preview</h2>
+          <p>
+            Rotate, zoom, and inspect the simplified 2-shoe clutch configuration directly in the browser.
+          </p>
+          <model-viewer
+            src="../models/clutch-2-shoe.glb"
+            alt="Interactive 3D preview of the 2-shoe centrifugal clutch configuration"
+            camera-controls
+            auto-rotate
+            shadow-intensity="1"
+            exposure="0.9"
+            ar
+            oncontextmenu="return false">
+          </model-viewer>
+          <div class="model-note">
+            Interactive 3D preview of the 2-shoe clutch configuration. Additional 3-shoe and 4-shoe variants were modelled and compared as assembly configurations. This is a simplified web-viewing model, not the original CAD file.
+          </div>
+        </div>
+
+        <div class="card full image-card">
+          <figure>
+            <img src="../images/clutch-concepts.png" alt="Concept sketches for centrifugal clutch design" />
+            <figcaption>Initial clutch concept sketches used to compare design approaches before selecting the final concept.</figcaption>
+          </figure>
+        </div>
+
+        <div class="card full">
+          <h2>CAD Modelling Workflow</h2>
+          <ul>
+            <li>Produced initial concept sketches and selected the preferred clutch concept for development.</li>
+            <li>Modelled the shaft using Honda GX power take-off shaft dimensions as the design reference.</li>
+            <li>Created flywheel configurations to support 2-shoe, 3-shoe, and 4-shoe clutch layouts.</li>
+            <li>Modelled the clutch bell as the outer output drum where power transfer is observed.</li>
+            <li>Designed the clutch shoe as the key contact component responsible for transferring energy between the flywheel/shaft and clutch bell.</li>
+            <li>Assembled the full clutch and generated separate assembly configurations for different shoe counts.</li>
+          </ul>
+        </div>
+
+        <div class="card full">
+          <div class="image-pair">
+            <figure>
+              <img src="../images/clutch-components.png" alt="SolidWorks CAD models of the clutch shaft, flywheel, clutch bell, and clutch shoe" />
+              <figcaption>Individual SolidWorks part models including the shaft, flywheel, clutch bell, and clutch shoe.</figcaption>
+            </figure>
+
+            <figure>
+              <img src="../images/clutch-assembly-configurations.png" alt="SolidWorks assembly configurations for centrifugal clutch with 2, 3, and 4 shoes" />
+              <figcaption>Complete clutch assembly and configuration variants for 2-shoe, 3-shoe, and 4-shoe layouts.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>2D Engineering Drawings</h2>
+          <p>
+            Detailed 2D drawings were produced for the clutch shoe, clutch bell, flywheel, shaft, and complete assembly.
+            These drawings included key dimensions, plane views, a bill of materials, and assembly order information
+            to support manufacturability and technical communication.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Engine Reference Values</h2>
+          <p>
+            The clutch design was framed around realistic Honda GX120 engine expectations rather than overstating
+            theoretical clutch capacity. These values provide a practical benchmark for the motion analysis and power
+            transmission discussion.
+          </p>
+          <ul>
+            <li>Maximum net torque: <strong>7.3 Nm at 2500 rpm</strong></li>
+            <li>Net power output: <strong>2.4 kW at 3600 rpm</strong></li>
+            <li>Continuous rated power: <strong>1.8 kW at 3000 rpm</strong></li>
+            <li>Continuous rated power: <strong>2.1 kW at 3600 rpm</strong></li>
+          </ul>
+        </div>
+
+        <div class="card full image-card">
+          <figure>
+            <img src="../images/clutch-engineering-drawings.png" alt="2D engineering drawings for centrifugal clutch components and assembly" />
+            <figcaption>2D engineering drawings showing component dimensions, assembly views, and bill of materials.</figcaption>
+          </figure>
+        </div>
+
+        <div class="card full">
+          <h2>FEA Simulation</h2>
+          <p>
+            The clutch shoe was analysed under maximum load conditions to examine strain, displacement, and stress.
+            The strain and stress results showed higher values near the applied force region, while displacement was
+            greatest further from the applied force due to the influence of distance in the torque response.
+          </p>
+        </div>
+
+        <div class="card full image-card">
+          <figure>
+            <img src="../images/clutch-fea-results.png" alt="FEA strain, displacement, and stress results for the clutch shoe" />
+            <figcaption>FEA results for the clutch shoe, including strain, displacement, and stress behaviour under load.</figcaption>
+          </figure>
+        </div>
+
+        <div class="card">
+          <h2>Motion Analysis</h2>
+          <p>
+            A motion study was completed on the assembled clutch to evaluate how the clutch shoe and clutch bell
+            engage as motor speed increases. At low RPM, the clutch bell remains idle; as RPM rises, the clutch begins
+            to engage and the clutch bell angular velocity increases sharply before reaching full engagement.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Results and Interpretation</h2>
+          <ul>
+            <li>The clutch shoe rotates immediately with the shaft and flywheel.</li>
+            <li>The clutch bell remains stationary at low motor speeds.</li>
+            <li>Bell speed increases sharply once engagement begins.</li>
+            <li>After full engagement, the clutch bell speed increases approximately linearly with motor speed.</li>
+            <li>Simulation results supported the comparison of 2, 3, and 4 shoe configurations.</li>
+          </ul>
+        </div>
+
+        <div class="card full image-card">
+          <figure>
+            <img src="../images/clutch-motion-analysis.png" alt="Motion analysis results and angular velocity graph for centrifugal clutch assembly" />
+            <figcaption>Motion analysis showing the clutch assembly response and angular velocity behaviour during engagement.</figcaption>
+          </figure>
+        </div>
+
+        <div class="card full">
+          <h2>Skills Demonstrated</h2>
+          <ul>
+            <li>3D CAD modelling of mechanical power transmission components.</li>
+            <li>Assembly configuration management for multiple design variants.</li>
+            <li>Creation of 2D engineering drawings for individual parts and assemblies.</li>
+            <li>Use of FEA to assess strain, displacement, and stress on a loaded clutch shoe.</li>
+            <li>Use of motion analysis to investigate dynamic engagement behaviour.</li>
+            <li>Application of theoretical calculations to support simulation work.</li>
+          </ul>
+        </div>
+
+        <div class="card full">
+          <h2>Reflection</h2>
+          <p>
+            This project strengthened my ability to connect CAD modelling, engineering drawings, theoretical calculations,
+            FEA, and motion simulation into one design workflow. It showed how a mechanical system can be developed from
+            concept through to assembly and then evaluated using simulation to understand stress behaviour and dynamic
+            engagement performance.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="image-lightbox" id="image-lightbox">
+    <span class="image-lightbox-close" id="image-lightbox-close">&times;</span>
+    <img id="image-lightbox-img" src="" alt="Expanded project image" />
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Muhammad Patel. Aerospace Engineering Portfolio.</p>
+    </div>
+  </footer>
+
+  <script>
+    const lightbox = document.getElementById("image-lightbox");
+    const lightboxImg = document.getElementById("image-lightbox-img");
+    const lightboxClose = document.getElementById("image-lightbox-close");
+
+    document.querySelectorAll("figure img").forEach((img) => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add("active");
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove("active");
+      lightboxImg.src = "";
+    }
+
+    lightboxClose.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox || event.target === lightboxImg) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>

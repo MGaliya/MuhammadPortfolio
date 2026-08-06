@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muhammad Patel | Aerospace Engineering Portfolio</title>
+  <meta name="description" content="Aerospace engineering portfolio for Muhammad Patel, featuring aircraft design, CAD, simulation, FEA, aeromechanics, motion analysis, automation, and surface modelling projects." />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --card: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --border: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, var(--bg), #020617);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.85);
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(10px);
+      z-index: 10;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.03em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      padding: 70px 0 52px;
+      display: grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4.2vw, 3.4rem);
+      line-height: 1.12;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 680px;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+    }
+
+    .button.primary {
+      background: var(--accent);
+      color: #082f49;
+      border-color: var(--accent);
+    }
+
+    .hero-card {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid var(--border);
+      padding: 28px;
+      border-radius: 24px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
+    }
+
+    .hero-card h2 {
+      margin-bottom: 14px;
+    }
+
+    .hero-card ul {
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    section {
+      padding: 64px 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      max-width: 760px;
+      margin-bottom: 32px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(30, 41, 59, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: #f8fafc;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 16px 0;
+    }
+
+    .tag {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 5px 10px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 390px;
+    }
+
+    .project-meta {
+      color: var(--accent-2);
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .projects-carousel-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .projects-carousel {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .projects-track {
+      display: flex;
+      gap: 20px;
+      transition: transform 0.4s ease;
+    }
+
+    .projects-track .project-card {
+      min-width: calc((100% - 40px) / 3);
+      flex: 0 0 calc((100% - 40px) / 3);
+    }
+
+    .carousel-btn {
+      background: rgba(30, 41, 59, 0.9);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 48px;
+      height: 48px;
+      border-radius: 999px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .carousel-btn:hover {
+      background: rgba(56, 189, 248, 0.2);
+    }
+
+    .carousel-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .skills-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .contact-panel {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.16), rgba(34, 197, 94, 0.12));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    footer {
+      padding: 32px 0;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 1000px) {
+      .projects-track .project-card {
+        min-width: calc((100% - 20px) / 2);
+        flex: 0 0 calc((100% - 20px) / 2);
+      }
+    }
+
+    @media (max-width: 850px) {
+      .hero,
+      .contact-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .grid,
+      .skills-list {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        position: static;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .projects-carousel-wrapper {
+        gap: 8px;
+      }
+
+      .projects-track .project-card {
+        min-width: 100%;
+        flex: 0 0 100%;
+      }
+
+      .carousel-btn {
+        width: 42px;
+        height: 42px;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 11vw, 3rem);
+        line-height: 1.1;
+      }
+
+      .hero {
+        padding: 52px 0 44px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Muhammad Patel · Aerospace Engineering</div>
+        <div class="nav-links">
+          <a href="#projects">Projects</a>
+          <a href="#skills">Skills</a>
+          <a href="#education">Education</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div>
+        <div class="eyebrow">Aerospace Engineering Portfolio</div>
+        <h1>Design, simulation, testing, and analysis for aerospace systems.</h1>
+        <p>
+          I am a 2025 BEng Aerospace Engineering with Pilot Studies graduate from the University of Lancashire,
+          with project experience in CAD, simulation, aircraft performance, aeromechanics, FEA, automation, and engineering analysis.
+        </p>
+        <div class="button-row">
+          <a class="button primary" href="Muhammad_Patel_Portfolio_Updated.pdf" target="_blank">Download PDF Portfolio</a>
+          <a class="button" href="Muhammad_Patel_CV.pdf" target="_blank">Download CV</a>
+          <a class="button" href="https://www.linkedin.com/in/muhammad-galiya/" target="_blank">LinkedIn</a>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <h2>Portfolio Focus</h2>
+        <ul>
+          <li>Aircraft design, stability, and performance analysis</li>
+          <li>CAD modelling, surface modelling, and design automation</li>
+          <li>FEA, modal analysis, fatigue, and aeromechanics simulation</li>
+          <li>Mechanical simulation, prototyping, and technical communication</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-intro">
+          Browse through my engineering projects in aircraft design, CAD, simulation, FEA,
+          mechanical analysis, design automation, and surface modelling.
+        </p>
+
+        <div class="projects-carousel-wrapper">
+          <button class="carousel-btn" id="projects-prev" aria-label="Previous projects">
+            &#10094;
+          </button>
+
+          <div class="projects-carousel" id="projects-carousel">
+            <div class="projects-track" id="projects-track">
+
+              <article class="card project-card">
+                <div>
+                  <div class="project-meta">Aircraft Design · Stability · Payload-Range</div>
+                  <h3>Aircraft Design and Stability Mission Analysis</h3>
+                  <p>
+                    Developed a conceptual civil transport aircraft mission analysis, combining payload-range calculations,
+                    constraint analysis, aircraft sizing, stability reference points, and cabin layout adjustments.
+                  </p>
+                  <div class="tag-row">
+                    <span class="tag">Aircraft Sizing</span>
+                    <span class="tag">Payload-Range</span>
+                    <span class="tag">Constraint Analysis</span>
+                    <span class="tag">Stability</span>
+                  </div>
+                </div>
+                <a href="projects/aircraft-stability.html">View project →</a>
+              </article>
+
+              <article class="card project-card">
+                <div>
+                  <div class="project-meta">Mechanical Design · Motion Analysis · Simulation</div>
+                  <h3>Clutch Design and Motion Analysis</h3>
+                  <p>
+                    Designed and simulated a centrifugal clutch for a Honda GX engine, comparing engagement behaviour,
+                    contact forces, rotational speed, torque delivery, and durability.
+                  </p>
+                  <div class="tag-row">
+                    <span class="tag">SolidWorks</span>
+                    <span class="tag">Motion Analysis</span>
+                    <span class="tag">Mechanical Design</span>
+                    <span class="tag">Simulation</span>
+                  </div>
+                </div>
+                <a href="projects/clutch-design.html">View project →</a>
+              </article>
+
+              <article class="card project-card">
+                <div>
+                  <div class="project-meta">CAD Automation · VBA · Parametric Modelling</div>
+                  <h3>SolidWorks API Gear Generator</h3>
+                  <p>
+                    Developed a SolidWorks API tool using VBA to automate spur gear design from user-defined
+                    parameters and reduce repetitive CAD modelling work.
+                  </p>
+                  <div class="tag-row">
+                    <span class="tag">SolidWorks API</span>
+                    <span class="tag">VBA</span>
+                    <span class="tag">Automation</span>
+                    <span class="tag">Parametric CAD</span>
+                  </div>
+                </div>
+                <a href="projects/gear-generator.html">View project →</a>
+              </article>
+
+              <article class="card project-card">
+                <div>
+                  <div class="project-meta">Aircraft Modelling · CAD · Surface Design</div>
+                  <h3>A380 Surface Modelling</h3>
+                  <p>
+                    Created an A380-style aircraft surface model, focusing on complex aerospace geometry, CAD accuracy,
+                    SolidWorks surfacing workflows, and clean freeform surface construction.
+                  </p>
+                  <div class="tag-row">
+                    <span class="tag">SolidWorks</span>
+                    <span class="tag">Surface Modelling</span>
+                    <span class="tag">Aircraft Geometry</span>
+                    <span class="tag">A380</span>
+                  </div>
+                </div>
+                <a href="projects/a380-surface-model.html">View project →</a>
+              </article>
+
+              <article class="card project-card">
+                <div>
+                  <div class="project-meta">Aeromechanics · FEA · Modal Analysis · Fatigue</div>
+                  <h3>Turbine Blade Aeromechanics Analysis</h3>
+                  <p>
+                    Analysed a turbine blade through mesh verification, material comparison, modal analysis,
+                    high-cycle fatigue assessment, and design optimisation for stress reduction.
+                  </p>
+                  <div class="tag-row">
+                    <span class="tag">FEA</span>
+                    <span class="tag">Modal Analysis</span>
+                    <span class="tag">Fatigue</span>
+                    <span class="tag">Optimisation</span>
+                  </div>
+                </div>
+                <a href="projects/wind-turbine-analysis.html">View project →</a>
+              </article>
+
+            </div>
+          </div>
+
+          <button class="carousel-btn" id="projects-next" aria-label="Next projects">
+            &#10095;
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <h2 class="section-title">Technical Skills</h2>
+        <p class="section-intro">
+          My technical background combines aerospace engineering analysis, CAD, simulation, coding, prototyping,
+          and practical testing methods.
+        </p>
+
+        <div class="skills-list">
+          <div class="card">
+            <h3>CAD and Design</h3>
+            <p>SolidWorks, AutoCAD, surface modelling, parametric modelling, mechanical design, assemblies, design automation, and technical drawings.</p>
+          </div>
+          <div class="card">
+            <h3>Simulation and Analysis</h3>
+            <p>FEA, motion analysis, modal analysis, fatigue analysis, aeromechanics, aircraft performance, stability calculations, and simulation-led design iteration.</p>
+          </div>
+          <div class="card">
+            <h3>Prototyping and Testing</h3>
+            <p>Wind tunnel testing, 3D printing, metrology, calibration systems, fabrication methods, prototype preparation, and experimental validation.</p>
+          </div>
+          <div class="card">
+            <h3>Coding and Software</h3>
+            <p>VBA for SolidWorks API automation, MATLAB, Excel, Arduino, Raspberry Pi, Microsoft Office, Simul8, data handling, and technical documentation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="container">
+        <h2 class="section-title">Education and Technical Background</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Education</h3>
+            <p><strong>BEng Aerospace Engineering with Pilot Studies</strong><br />University of Central Lancashire · Graduated 2025</p>
+            <p>Focused on aerospace design, aircraft systems, analysis, simulation, pilot studies, and engineering problem-solving.</p>
+          </div>
+          <div class="card">
+            <h3>Engineering Strengths</h3>
+            <p>Aircraft design, CAD modelling, surface modelling, FEA, aeromechanics, motion analysis, fatigue, design automation, and engineering communication.</p>
+          </div>
+          <div class="card">
+            <h3>Project Evidence</h3>
+            <p>This portfolio includes CAD models, simulation results, engineering calculations, graphs, technical summaries, and reflections across aerospace and mechanical design projects.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-panel">
+          <div>
+            <h2 class="section-title">Contact</h2>
+            <p class="section-intro">
+              I am interested in aerospace engineering graduate roles, CAD/design engineering roles,
+              simulation-focused roles, and aviation-related technical opportunities.
+            </p>
+          </div>
+          <div>
+            <p><strong>Email:</strong> <a href="mailto:MGaliya16@gmail.com">MGaliya16@gmail.com</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/muhammad-galiya/" target="_blank">linkedin.com/in/muhammad-galiya</a></p>
+            <p><strong>Website:</strong> <a href="https://mgaliya.github.io/MuhammadPortfolio/" target="_blank">https://mgaliya.github.io/MuhammadPortfolio/</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Muhammad Patel. Aerospace Engineering Portfolio.</p>
+    </div>
+  </footer>
+
+  <script>
+    const track = document.getElementById("projects-track");
+    const prevBtn = document.getElementById("projects-prev");
+    const nextBtn = document.getElementById("projects-next");
+    const cards = Array.from(track.children);
+
+    let currentIndex = 0;
+
+    function cardsPerView() {
+      if (window.innerWidth <= 700) return 1;
+      if (window.innerWidth <= 1000) return 2;
+      return 3;
+    }
+
+    function updateCarousel() {
+      const visibleCards = cardsPerView();
+      const maxIndex = Math.max(0, cards.length - visibleCards);
+
+      if (currentIndex > maxIndex) {
+        currentIndex = maxIndex;
+      }
+
+      const cardWidth = cards[0].getBoundingClientRect().width;
+      const gap = 20;
+      const moveX = currentIndex * (cardWidth + gap);
+
+      track.style.transform = `translateX(-${moveX}px)`;
+
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex >= maxIndex;
+    }
+
+    prevBtn.addEventListener("click", () => {
+      currentIndex = Math.max(0, currentIndex - 1);
+      updateCarousel();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      const maxIndex = Math.max(0, cards.length - cardsPerView());
+      currentIndex = Math.min(maxIndex, currentIndex + 1);
+      updateCarousel();
+    });
+
+    window.addEventListener("resize", updateCarousel);
+    window.addEventListener("load", updateCarousel);
+  </script>
+</body>
+</html>
